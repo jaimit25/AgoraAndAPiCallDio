@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:agora_uikit/agora_uikit.dart';
-import 'package:canvas/Canvas.dart';
 import 'package:canvas/DioAPi.dart';
+import 'package:canvas/webSupportHttp.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Dio_try(),
+      // home:Dio_try(),
+      home:WebSup(),
     );
   }
 }
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
 // class _CallState extends State<Call> {
 //   final AgoraClient client = AgoraClient(
 //   agoraConnectionData: AgoraConnectionData(
-//     appId: "643b67d06b3740f9b7a36f4ec1150b36",
+//     appId: "",
 //     channelName: "test",
 //   ),
   

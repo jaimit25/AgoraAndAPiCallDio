@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class Dio_try extends StatefulWidget {
   @override
@@ -8,12 +9,16 @@ class Dio_try extends StatefulWidget {
 
 class _Dio_tryState extends State<Dio_try> {
   dynamic dta;
-
+  dynamic usr;
   getData() async {
     try {
+      var client2 = await Dio();
       var client = await Dio();
       var response =
           await client.get("https://mock-database-f1298.web.app/api/v1/users");
+      var response2 = await client2.get(
+          "https://firebasestorage.googleapis.com/v0/b/gdapp-b4966.appspot.com/o/ApiCall%2Fusers.json?alt=media&token=bdd75918-475c-4d3f-bf75-cbcabf0f9e25");
+
       if (response.statusCode == 200) {
         print("Success");
         print(response.data);
@@ -24,8 +29,18 @@ class _Dio_tryState extends State<Dio_try> {
         });
       } else
         print(response.statusCode);
+
+      if (response2.statusCode == 200) {
+        print("Success");
+        print(response2.data);
+        print(response2.data.length);
+        print(response2.data["user1"]["name"]);
+        setState(() {
+          usr = response2.data;
+        });
+      }
     } catch (e) {
-      print("$e");
+      print(e);
     }
   }
 
@@ -39,7 +54,7 @@ class _Dio_tryState extends State<Dio_try> {
     // client.post("https://mock-database-f1298.web.app/api/v1/users",
     //     onSendProgress: (int sent, int total) {
     //   print('$sent $total');
-    // }, 
+    // },
     // options: Options(
     //   contentType: Headers.formUrlEncodedContentType,
     //   responseType: ResponseType.json,
@@ -84,6 +99,9 @@ class _Dio_tryState extends State<Dio_try> {
         child: Column(children: [
           SizedBox(
             height: 100,
+          ),
+          Center(
+            child: Text(usr["user3"]["name"]),
           ),
           Center(
             child: RaisedButton(
