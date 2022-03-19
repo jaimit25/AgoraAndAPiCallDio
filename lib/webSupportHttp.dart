@@ -29,6 +29,24 @@ class _WebSupState extends State<WebSup> {
     }
   }
 
+  postD() async {
+    print("ran");
+
+    try {
+      var response = await http.post(Uri.parse(url), body: {
+        "title": "Dart",
+        "body": "Dart is awesome",
+        "userId":"10",
+      }).catchError((e) {
+        print(e);
+      });
+      print(response.body);
+    } catch (e) {
+      print(e);
+    }
+    print("Executed");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,38 +61,59 @@ class _WebSupState extends State<WebSup> {
   );
   var desw = TextStyle(
     color: Colors.white,
-    fontSize:16,
+    fontSize: 16,
+  );
+  var desbw = TextStyle(
+    color: Colors.white,
+    fontSize: 13,
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.black54,
+          actions: [
+            InkWell(
+                onTap: () {
+                  print("clicked");
+                  postD();
+                },
+                child: Icon(Icons.add)),
+            InkWell(
+                onTap: () {
+                  getD();
+                },
+                child: Icon(Icons.refresh))
+          ],
+        ),
         body: ListView(
-      shrinkWrap: true,
-      children: <Widget>[
-        Center(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.all(10),
-                child: ListTile(
-                  // tileColor: Colors.yellow,
-                  title: Text(
-                    data[index]['title'],
-                    style:desw
-                  ),
-                  subtitle: Text(data[index]['body'], style:desw),
-                  iconColor: Colors.grey,
-                  leading: Icon(Icons.person,size: 30,),
-                ),
-              );
-            },
-          ),
-        )
-      ],
-    ));
+          shrinkWrap: true,
+          children: <Widget>[
+            Center(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    child: ListTile(
+                      // tileColor: Colors.yellow,
+                      title: Text(data[index]['title'], style: desw),
+                      subtitle: Text(data[index]['body'], style: desbw),
+                      iconColor: Colors.grey,
+                      leading: Text(
+                        "id : " + data[index]['id'].toString(),
+                        style: desbw,
+                      ),
+                      // leading: Icon(Icons.person,size: 30,),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ));
   }
 }
