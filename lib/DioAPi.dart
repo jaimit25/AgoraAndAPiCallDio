@@ -17,7 +17,7 @@ class _Dio_tryState extends State<Dio_try> {
       var response =
           await client.get("https://mock-database-f1298.web.app/api/v1/users");
       var response2 = await client2.get(
-          "https://firebasestorage.googleapis.com/v0/b/gdapp-b4966.appspot.com/o/ApiCall%2Fusers.json?alt=media&token=bdd75918-475c-4d3f-bf75-cbcabf0f9e25");
+          "");
 
       if (response.statusCode == 200) {
         print("Success");
